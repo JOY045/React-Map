@@ -78,7 +78,12 @@ googleStreets.addTo(map);
 // Map Theme
 
 // Marker
-var marker = L.marker([23.6850, 90.3563]);
+var myIcon = L.icon({
+    iconUrl: 'images/location-icon.png',
+    iconSize: [27, 40]
+});
+
+var marker = L.marker([23.6850, 90.3563], { icon: myIcon, draggable: true});
 var popUp = marker.bindPopup('Welcome to Bangladesh!').openPopup();
 
 popUp.addTo(map);
