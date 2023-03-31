@@ -14,7 +14,7 @@ osm.addTo(map);
 
 // Topo Map
 // var topoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-// 	maxZoom: 5,
+// 	maxZoom: 20,
 // 	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 // });
 
@@ -29,6 +29,15 @@ osm.addTo(map);
 // worldImagery.addTo(map);
 // World Imagery
 
+// Jawg Dark
+// var jwagDark = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
+// 	attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+// 	maxZoom: 20,
+// });
+
+// jwagDark.addTo(map);
+// Jawg Dark
+
 // Google Map
 // Google Street
 googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
@@ -40,30 +49,30 @@ googleStreets.addTo(map);
 // Google Street
 
 // Hybrid
-// googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
-//     maxZoom: 20,
-//     subdomains:['mt0','mt1','mt2','mt3']
-// });
+googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
 
-// googleHybrid.addTo(map);
+googleHybrid.addTo(map);
 // Hybrid
 
 // Satellite
-// googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-//     maxZoom: 20,
-//     subdomains:['mt0','mt1','mt2','mt3']
-// });
+googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
 
-// googleSat.addTo(map);
+googleSat.addTo(map);
 // Satellite
 
 // Terrain
-// googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
-//     maxZoom: 20,
-//     subdomains:['mt0','mt1','mt2','mt3']
-// });
+googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
 
-// googleTerrain.addTo(map);
+googleTerrain.addTo(map);
 // Terrain
 
 // Note that difference in the "lyrs" parameter in the URL:
@@ -83,8 +92,34 @@ var myIcon = L.icon({
     iconSize: [27, 40]
 });
 
-var marker = L.marker([23.6850, 90.3563], { icon: myIcon, draggable: true});
-var popUp = marker.bindPopup('Welcome to Bangladesh!').openPopup();
+var bangladesh = L.marker([23.6850, 90.3563], { icon: myIcon, draggable: true});
+var popUp = bangladesh.bindPopup('Welcome to Bangladesh!' + ' ' + bangladesh.getLatLng()).openPopup();
 
 popUp.addTo(map);
+
+var dhaka = L.marker([23.8103, 90.4125], { icon: myIcon, draggable: true });
+var popUp = dhaka.bindPopup('Welcome to Dhaka!' + ' ' + dhaka.getLatLng())
 // Marker
+
+// GeoJSON
+// console.log(marker.toGeoJSON());
+// GeoJSON
+
+// Layer Controller
+var baseMaps = {
+    "OSM": osm,
+    "Google Streets": googleStreets,
+    "Google Hybrid": googleHybrid,
+    "Google Satellite": googleSat,
+    "Google Terrain": googleTerrain
+    // "Topo Map": topoMap,
+    // "Jawg Dark": jwagDark
+};
+
+var overlayMaps = {
+    "Bangladesh": bangladesh,
+    "Dhaka": dhaka
+};
+
+var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+// Layer Controller
