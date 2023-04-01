@@ -92,17 +92,24 @@ var myIcon = L.icon({
     iconSize: [27, 40]
 });
 
+// Dhaka
+var dhaka = L.marker([23.8103, 90.4125], { icon: myIcon, draggable: true });
+var popUp = dhaka.bindPopup('Welcome to Dhaka!' + ' ' + dhaka.getLatLng());
+
+// Rangpur
+var rangpur = L.marker([25.7439, 89.2752], { icon: myIcon, draggable: true });
+var popUp = rangpur.bindPopup('Welcome to Rangpur!' + ' ' + rangpur.getLatLng());
+
+// Bangladesh
 var bangladesh = L.marker([23.6850, 90.3563], { icon: myIcon, draggable: true});
 var popUp = bangladesh.bindPopup('Welcome to Bangladesh!' + ' ' + bangladesh.getLatLng()).openPopup();
 
 popUp.addTo(map);
-
-var dhaka = L.marker([23.8103, 90.4125], { icon: myIcon, draggable: true });
-var popUp = dhaka.bindPopup('Welcome to Dhaka!' + ' ' + dhaka.getLatLng())
 // Marker
 
 // GeoJSON
 // console.log(marker.toGeoJSON());
+// var pointData = L.geoJSON(pointJson).addTo(map);
 // GeoJSON
 
 // Layer Controller
@@ -118,8 +125,17 @@ var baseMaps = {
 
 var overlayMaps = {
     "Bangladesh": bangladesh,
-    "Dhaka": dhaka
+    "Dhaka": dhaka,
+    "Rangpur": rangpur
+    // "Point Data": pointData
 };
 
 var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 // Layer Controller
+
+// Events
+map.on('mousemove', function (e) {
+    document.getElementsByClassName('coordinates')[0].innerHTML = 'Lat: ' + e.latlng.lat + 'Lon: ' + e.latlng.lng;
+    console.log('Lat: ' + e.latlng.lat, 'Lon: ' + e.latlng.lng);
+})
+// Events
