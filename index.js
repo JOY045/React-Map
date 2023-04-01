@@ -134,8 +134,15 @@ var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 // Layer Controller
 
 // Events
+map.on('mouseover', function () {
+    console.log('Your Mouse is over the map');
+});
+
 map.on('mousemove', function (e) {
-    document.getElementsByClassName('coordinates')[0].innerHTML = 'Lat: ' + e.latlng.lat + 'Lon: ' + e.latlng.lng;
+    document.getElementsByClassName('coordinates')[0].innerHTML = 'Lat: ' + e.latlng.lat, 'Lon: ' + e.latlng.lng;
+    document.getElementsByClassName('coordinates')[0].innerHTML = 'X: ' + e.layerPoint.x, 'Y: ' + e.layerPoint.y;
     console.log('Lat: ' + e.latlng.lat, 'Lon: ' + e.latlng.lng);
-})
+    console.log('X: ' + e.layerPoint.x, 'Y: ' + e.layerPoint.y);
+    // console.log(e);
+});
 // Events
